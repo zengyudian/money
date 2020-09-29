@@ -13,6 +13,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import static android.widget.Toast.LENGTH_SHORT;
 
 
@@ -22,7 +30,6 @@ public class Main2Activity extends AppCompatActivity {
     EditText dollarrate, eurorate, wonrate;
     EditText tv1;
     Handler handler;
-    
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -39,10 +46,41 @@ public class Main2Activity extends AppCompatActivity {
                     String str=(String)msg.obj;
                     Log.i(TAG,"handleMessage:getMessage msg="+str);
                     tv1.setText(""+str);
+
+                    //获取网络数据
+                    URL url=null;
+                    try{
+                        url=new URL("www.usd-cny.com/bankofchina.htm");
+                        HttpURLConnection http = (HttpURLConnection) url.openConnection();
+                        InputStream in = http.getInputStream();
+                        String html = inputStream2String(in);
+                        Log.i(TAG, "run: html=" + html);
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }
 
                 super.handleMessage(msg);
             }
+
+            private String inputStream2String(InputStream inputStream)
+                    throws IOException {
+                final int bufferSize=1024;
+                final char[] buffer = new char[bufferSize];
+                final StringBuilder out = new StringBuilder();
+                Reader in = new InputStreamReader(inputStream, "gb2312");
+                while (true) {
+                    int rsz = in.read(buffer, 0, buffer.length);
+                    if (rsz < 0)
+                        break;
+                    out.append(buffer, 0, rsz);
+                }
+                return out.toString();
+            }
+
         };
 
         Message msg=handler.obtainMessage(5);
