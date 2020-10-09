@@ -40,6 +40,15 @@ public class Main2Activity extends AppCompatActivity {
         tv1=findViewById(R.id.tv1);
         //tv1.setText("123");
 
+        new Thread(){
+            public void run(){
+                Message msg=handler.obtainMessage(5);
+                msg.what=5;
+                msg.obj="Hello from run()";
+                handler.sendMessage(msg);
+            }
+        }.start();
+
         handler=new Handler(){
             public void handleMessage(Message msg){
                 if(msg.what==5){
@@ -83,11 +92,10 @@ public class Main2Activity extends AppCompatActivity {
 
         };
 
-        Message msg=handler.obtainMessage(5);
+        /*Message msg=handler.obtainMessage(5);
         //msg.what=5;
         msg.obj="Hello from run()";
-        handler.sendMessage(msg);
-
+        handler.sendMessage(msg);*/
 
         //设置初始汇率
         dollarrate=findViewById(R.id.dollartext);
@@ -139,8 +147,9 @@ class myrun implements Runnable{
 
     public void run(){
 
-
         Log.i(TAG,"run:123456789");
+
+
     }
 }
 
