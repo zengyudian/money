@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences=getSharedPreferences("myrate", Activity.MODE_PRIVATE);
         PreferenceManager.getDefaultSharedPreferences(this);
 
-        dollarRate=sharedPreferences.getFloat("dollar_rate",0.0f);
-        euroRate=sharedPreferences.getFloat("euro_rate",0.0f);
-        wonRate=sharedPreferences.getFloat("won_rate",0.0f);
+        dollarRate=sharedPreferences.getFloat("dollar_rate",(float) 0.1465);
+        euroRate=sharedPreferences.getFloat("euro_rate",(float) 0.1259);
+        wonRate=sharedPreferences.getFloat("won_rate",(float) 0.1259);
 
         /*dollarRate= (float) 0.1464;
         euroRate= (float) 0.1255;
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             editor.putFloat("dollar_rate",dollarRate);
             editor.putFloat("euro_rate",euroRate);
             editor.putFloat("won_rate",wonRate);
+
             editor.apply();
 
         }
