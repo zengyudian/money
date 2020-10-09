@@ -92,10 +92,6 @@ public class Main2Activity extends AppCompatActivity {
 
         };
 
-        /*Message msg=handler.obtainMessage(5);
-        //msg.what=5;
-        msg.obj="Hello from run()";
-        handler.sendMessage(msg);*/
 
         //设置初始汇率
         dollarrate=findViewById(R.id.dollartext);
